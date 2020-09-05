@@ -1,7 +1,7 @@
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
 import Constants from 'expo-constants';
-import Avatar from './components/Avatar';
+import AuthorRow from './components/AuthorRow';
 
 const styles = StyleSheet.create({
   container: {
@@ -14,10 +14,12 @@ const styles = StyleSheet.create({
 export default function App() {
   return (
     <View style={styles.container}>
-      <Avatar
-        initials="FL"
-        size={35}
-        backgroundColor="teal"
+      <AuthorRow
+        fullname="First Last"
+        linkText="Comments"
+        onPressLinkText={() => {
+          console.log('Pressed link!');
+        }}
       />
     </View>
   );
