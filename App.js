@@ -124,7 +124,7 @@ export default class App extends React.Component {
           onRequestClose={this.closeCommentScreen}
         >
           <Comments
-            style={styles.container}
+            style={styles.comments}
             comments={commentsForItem[selectedItemId] || []}
             onClose={this.closeCommentScreen}
             onSubmitComment={this.onSubmitComment}
