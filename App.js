@@ -1,7 +1,7 @@
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
 import Constants from 'expo-constants';
-import AuthorRow from './components/AuthorRow';
+import CardList from './components/CardList';
 
 const styles = StyleSheet.create({
   container: {
@@ -11,16 +11,15 @@ const styles = StyleSheet.create({
   },
 });
 
+const items = [
+  { id: 0, author: 'Bob Ross' },
+  { id: 2, author: 'Chuck Norris' },
+];
+
 export default function App() {
   return (
     <View style={styles.container}>
-      <AuthorRow
-        fullname="First Last"
-        linkText="Comments"
-        onPressLinkText={() => {
-          console.log('Pressed link!');
-        }}
-      />
+      <CardList items={items} />
     </View>
   );
 }
