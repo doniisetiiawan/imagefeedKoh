@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import {
   ActivityIndicator,
@@ -35,7 +36,11 @@ class Feed extends React.Component {
   }
 
   render() {
-    const { style } = this.props;
+    const {
+      commentsForItem,
+      onPressComments,
+      style,
+    } = this.props;
     const { loading, error, items } = this.state;
 
     if (loading) {
@@ -48,7 +53,11 @@ class Feed extends React.Component {
 
     return (
       <SafeAreaView style={style}>
-        <CardList items={items} />
+        <CardList
+          items={items}
+          commentsForItem={commentsForItem}
+          onPressComments={onPressComments}
+        />
       </SafeAreaView>
     );
   }
@@ -58,6 +67,10 @@ export default Feed;
 
 Feed.propTypes = {
   style: ViewPropTypes.style,
+  commentsForItem: PropTypes.objectOf(
+    PropTypes.arrayOf(PropTypes.string),
+  ).isRequired,
+  onPressComments: PropTypes.func.isRequired,
 };
 
 Feed.defaultProps = {

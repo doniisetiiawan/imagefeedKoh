@@ -7,23 +7,33 @@ import { getImageFromId } from '../utils/api';
 const keyExtractor = ({ id }) => id.toString();
 
 class CardList extends React.Component {
-  renderItem = ({ item: { id, author } }) => (
-    <Card
-      fullname={author}
-      image={{
-        uri: getImageFromId(id),
-      }}
-    />
-  );
+  renderItem = ({ item: { id, author } }) => {
+    const { commentsForItem, onPressComments } = this.props;
+    const comments = commentsForItem[id];
+
+    return (
+      <Card
+        fullname={author}
+        image={{
+          uri: getImageFromId(id),
+        }}
+        linkText={`${
+          comments ? comments.length : 0
+        } Comments`}
+        onPressLinkText={() => onPressComments(id)}
+      />
+    );
+  };
 
   render() {
-    const { items } = this.props;
+    const { items, commentsForItem } = this.props;
 
     return (
       <FlatList
         data={items}
         renderItem={this.renderItem}
         keyExtractor={keyExtractor}
+        extraData={commentsForItem}
       />
     );
   }
@@ -38,4 +48,8 @@ CardList.propTypes = {
       author: PropTypes.string.isRequired,
     }),
   ).isRequired,
+  commentsForItem: PropTypes.objectOf(
+    PropTypes.arrayOf(PropTypes.string),
+  ).isRequired,
+  onPressComments: PropTypes.func.isRequired,
 };
